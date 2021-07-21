@@ -3,6 +3,7 @@
     <div>
       <!-- <select (change)="filter($any($event.target).value)"> -->
       <select [(ngModel)]="countryFilter" (change)="filter()">
+        <option> Country Name</option>
         <option [value]="data.country_name" *ngFor="let data of mydata['country_codes']">{{data.country_name}}</option>
       </select>
     </div> 
