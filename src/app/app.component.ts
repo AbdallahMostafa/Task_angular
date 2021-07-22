@@ -14,14 +14,16 @@ export class AppComponent {
   countryFilter :any;
   stateFilter : any;
   
-  constructor(private http: HttpClient) { }
-  ngOnInit(): void {
+  constructor(private http: HttpClient) { 
     this.getData();
+
+  }
+  ngOnInit(): void {
   }
 
   getData() {
     this.http.get('http://127.0.0.1:8000/all/').pipe(first()).subscribe(res =>{
-      this.mydata = res;
+      this.mydata = res;      
     });
   }
   
@@ -34,13 +36,11 @@ export class AppComponent {
     if(this.stateFilter) {      
       this.http.get(`http://127.0.0.1:8000/state_filter/${this.stateFilter}`).pipe(first()).subscribe(res =>{
         this.mydata = res;
-        console.log(this.mydata);
       });
     }
     if(this.countryFilter && this.stateFilter) {
       this.http.get(`http://127.0.0.1:8000/country_state_filter/${this.countryFilter}/${this.stateFilter}`).pipe(first()).subscribe(res =>{
         this.mydata = res;
-        console.log(this.mydata);
       });
     } 
   }
