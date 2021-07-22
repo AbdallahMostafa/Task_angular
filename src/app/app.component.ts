@@ -35,7 +35,6 @@ export class AppComponent {
   }
   
   filter(event:any){
-    console.log(event.target.name)
     if( event.target.name == "country") {
       this.countryFilter=event.target.value;
       this.http.get(`http://127.0.0.1:8000/country_filter/${event.target.value}`).pipe(first()).subscribe(res =>{
