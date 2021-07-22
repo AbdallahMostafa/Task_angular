@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {first} from 'rxjs/operators';
-import { from } from 'rxjs';
-import { analyze } from 'eslint-scope';
-import { FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-root',
@@ -15,9 +13,8 @@ export class AppComponent {
   value : any;
   countryFilter :any;
   stateFilter : any;
-  filterArray : any;
+  
   constructor(private http: HttpClient) { }
-  selectedItem = "hello";
   ngOnInit(): void {
     this.getData();
   }
@@ -45,18 +42,7 @@ export class AppComponent {
         this.mydata = res;
         console.log(this.mydata);
       });
-    }
-    
-  }
-
-  selectValid(value : any){
-    this.http.get(`http://127.0.0.1:8000/filter/${value}`).pipe(first()).subscribe(res =>{
-      this.mydata = res;
-      console.log(this.mydata);
-    });
-  }
-  onChange(event: any) {
-    console.log(event);
+    } 
   }
 }
 
