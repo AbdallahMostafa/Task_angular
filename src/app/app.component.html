@@ -1,18 +1,20 @@
-<div class="container">
+<div>
     <h2>Phone Numbers</h2>
-    <div class="floated">
-      <select  name="country" class="floated"  (change)="filter($event)" >
-        <option value="null"  selected hidden>Country Name</option>
-        <option [value]="data.country_name" *ngFor="let data of mydata['country_codes']">{{data.country_name}}</option>
-      </select>
-    </div> 
-    <div >
-      <select name = "state" class="floated" (change)="filter($event)">
-          <!-- <option value="null"  selected hidden>Choose a drink</option> -->
-          <option [ngValue]="null"  selected hidden>Phone Numbers</option>
-          <option [value]="data.value" *ngFor="let data of stateArray" >{{data.title}}</option>
-      </select>
-  </div> 
+    <div class="container">
+        <div class="buttons">
+            <select  name="country" class="floated"  (change)="filter($event)" >
+              <option value="null"  selected hidden>Country Name</option>
+              <option [value]="data.country_name" *ngFor="let data of mydata['country_codes']">{{data.country_name}}</option>
+            </select>
+          </div> 
+          <div >
+            <select name = "state" class="floated" (change)="filter($event)">
+                <option [ngValue]="null"  selected hidden>Phone Numbers</option>
+                <option [value]="data.value" *ngFor="let data of stateArray" >{{data.title}}</option>
+            </select>
+        </div>
+    </div>
+     
   <div style="margin:0 30px;">
     <table>
         <tr>
