@@ -13,28 +13,38 @@ export class AppComponent {
   value : any;
   countryFilter :any;
   stateFilter : any;
+
+  stateArray :any;
   
   constructor(private http: HttpClient) { 
     this.getData();
-
+    this.stateArray = [
+      {"title":"Valid Phone Numbers","value":"OK"}
+    , {"title":"Invaild Phone Numbers","value":"NOK"}
+  ];
   }
   ngOnInit(): void {
   }
 
   getData() {
     this.http.get('http://127.0.0.1:8000/all/').pipe(first()).subscribe(res =>{
-      this.mydata = res;      
+      this.mydata = res; 
+      console.log(this.mydata);
+           
     });
   }
   
-  filter(){
-    if(this.countryFilter) {
-      this.http.get(`http://127.0.0.1:8000/country_filter/${this.countryFilter}`).pipe(first()).subscribe(res =>{
+  filter(event:any){
+    console.log(event.target.name)
+    if( event.target.name == "country") {
+      this.countryFilter=event.target.value;
+      this.http.get(`http://127.0.0.1:8000/country_filter/${event.target.value}`).pipe(first()).subscribe(res =>{
         this.mydata = res;
       });
     }
-    if(this.stateFilter) {      
-      this.http.get(`http://127.0.0.1:8000/state_filter/${this.stateFilter}`).pipe(first()).subscribe(res =>{
+    if(event.target.name == "state") {
+      this.stateFilter=event.target.value;       
+      this.http.get(`http://127.0.0.1:8000/state_filter/${event.target.value}`).pipe(first()).subscribe(res =>{
         this.mydata = res;
       });
     }
