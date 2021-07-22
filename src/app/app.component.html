@@ -1,13 +1,14 @@
 <div>
     <h2>Phone Numbers</h2>
     <div>
-      <!-- <select (change)="filter($any($event.target).value)"> -->
       <select [(ngModel)]="countryFilter" (change)="filter()">
+        <option [ngValue]="null">Country Name</option>
         <option [value]="data.country_name" *ngFor="let data of mydata['country_codes']">{{data.country_name}}</option>
       </select>
     </div> 
     <div>
-      <select [(ngModel)]="stateFilter" [name]="stateFilter" (change)="filter()">
+      <select [(ngModel)]="stateFilter" (change)="filter()">
+        <option value="null" selected>Phone Number</option>
         <option value="OK">Valid Phone Numbers</option>
         <option value="NOK">Invalid Phone Numbers</option>
       </select>
