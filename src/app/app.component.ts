@@ -23,9 +23,7 @@ export class AppComponent {
 
   getData() {
     this.http.get('http://127.0.0.1:8000/all/').pipe(first()).subscribe(res =>{
-      this.mydata = res;
-      console.log(this.mydata);
-      
+      this.mydata = res;      
     });
   }
   
