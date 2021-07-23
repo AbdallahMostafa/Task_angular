@@ -9,49 +9,56 @@ import {first} from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  mydata: any;
-  value : any;
+  users: any;
   countryFilter :any;
   stateFilter : any;
-
+  countryCodes : any;
   stateArray :any;
-  
+  baseURL = "http://127.0.0.1:8000/api";
   constructor(private http: HttpClient) { 
     this.getData();
+    this.getCountryCodes();
+    this.users = null;
+    this.stateFilter = null;
+    this.countryFilter = null;
     this.stateArray = [
       {"title":"Valid Phone Numbers","value":"OK"}
     , {"title":"Invaild Phone Numbers","value":"NOK"}
-  ];
+    ];
   }
   ngOnInit(): void {
   }
 
   getData() {
-    this.http.get('http://127.0.0.1:8000/all/').pipe(first()).subscribe(res =>{
-      this.mydata = res; 
-      console.log(this.mydata);
-           
+    this.http.get(`${this.baseURL}/all/`).pipe(first()).subscribe(res =>{
+      this.users = res;            
+    });
+  }
+
+  getCountryCodes() {
+    this.http.get(`${this.baseURL}/country_codes/`).pipe(first()).subscribe(res =>{
+      this.countryCodes = res;           
     });
   }
   
   filter(event:any){
+    let Url = this.baseURL + '/all/?';
     if( event.target.name == "country") {
       this.countryFilter=event.target.value;
-      this.http.get(`http://127.0.0.1:8000/country_filter/${event.target.value}`).pipe(first()).subscribe(res =>{
-        this.mydata = res;
-      });
+    }
+    if(this.countryFilter) {
+      Url += 'country='  + this.countryFilter + '&';
     }
     if(event.target.name == "state") {
       this.stateFilter=event.target.value;       
-      this.http.get(`http://127.0.0.1:8000/state_filter/${event.target.value}`).pipe(first()).subscribe(res =>{
-        this.mydata = res;
-      });
     }
-    if(this.countryFilter && this.stateFilter) {
-      this.http.get(`http://127.0.0.1:8000/country_state_filter/${this.countryFilter}/${this.stateFilter}`).pipe(first()).subscribe(res =>{
-        this.mydata = res;
-      });
-    } 
+    if(this.stateFilter) {
+      Url += 'state='  + this.stateFilter;
+    }
+    this.http.get(Url).pipe(first()).subscribe(res =>{
+      this.users = res;
+    });
+    
   }
 }
 
