@@ -1,15 +1,15 @@
-<div>
+<div *ngIf="users">
     <h2>Phone Numbers</h2>
     <div class="container">
         <div class="buttons">
             <select  name="country" class="floated"  (change)="filter($event)" >
-              <option value="null"  selected hidden>Country Name</option>
-              <option [value]="data.country_name" *ngFor="let data of mydata['country_codes']">{{data.country_name}}</option>
+              <option value=""  selected hidden>Country Name</option>
+              <option [value]="data.country_name" *ngFor="let data of countryCodes">{{data.country_name}}</option>
             </select>
           </div> 
           <div >
             <select name = "state" class="floated" (change)="filter($event)">
-                <option [ngValue]="null"  selected hidden>Phone Numbers</option>
+                <option value=""  selected hidden>Phone Numbers</option>
                 <option [value]="data.value" *ngFor="let data of stateArray" >{{data.title}}</option>
             </select>
         </div>
@@ -23,7 +23,7 @@
             <th>Country Code</th>
             <th>Phone number</th>
         </tr>
-        <tr *ngFor="let data of mydata['users']">
+        <tr *ngFor="let data of users['users']">
             <td>{{ data.country_name }}</td>
             <td>{{ data.state }}</td>
             <td>{{ data.country_code }}</td>
